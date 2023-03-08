@@ -2,7 +2,7 @@
  A custom FiveM launcher for multiple servers
 
 ## Launcher Preview
-
+![Launcher preview](./preview1.png)
 ## Features
   * Multiple servers support
   * Online players
