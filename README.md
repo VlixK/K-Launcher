@@ -9,7 +9,7 @@
   * Clear cache FiveM
   * Automated application updates
   * Change and save Cover Picture in application (Option)
-  * Change IP/City Name in Launcher (Option)
+  * Replace IP/City in application (Option)
   
 #### About
   - Discord: Kevi#2922
