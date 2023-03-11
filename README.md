@@ -8,7 +8,7 @@
   * Online players
   * Clear cache FiveM
   * Automated application updates
-  * Change Cover Picture in application
+  * Change and save Cover Picture in application 
   
 #### About
   - Discord: Kevi#2922
