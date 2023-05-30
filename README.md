@@ -1,5 +1,5 @@
 
-# K Launcher - 
+# K Launcher 
  A custom FiveM launcher for multiple servers
 
 ## Launcher Preview
