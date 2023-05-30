@@ -1,4 +1,4 @@
-# K Launcher
+# K Launcher - [Download](https://github.com/VlixK/K-Launcher/releases)
  A custom FiveM launcher for multiple servers
 
 ## Launcher Preview
