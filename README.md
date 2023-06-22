@@ -15,6 +15,6 @@
   * Add/remove IP/City in application (Option)
 
 #### About
-  - Discord: [Kevi#2922](https://discordapp.com/users/312463940628119552)
+  - Discord: [KayTea](https://discordapp.com/users/312463940628119552)
   - [Source](https://github.com/vsousa14/FiveM-Server-Launcher) @ SOUSA
   
