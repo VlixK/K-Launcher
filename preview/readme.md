@@ -11,5 +11,6 @@
 
 #### Settings
 Enable/disable settings
+
 ![image](https://github.com/VlixK/K-Launcher/assets/81835599/aed4a03d-d625-4ae2-beea-7928769a476e)
 
