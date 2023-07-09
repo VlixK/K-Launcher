@@ -5,7 +5,7 @@
  A custom FiveM launcher for multiple servers
 
 ## Launcher Preview
-![image](https://github.com/VlixK/K-Launcher/assets/81835599/419dc84a-21d0-44da-af4f-ba9f8931d791)
+![image](https://github.com/VlixK/K-Launcher/assets/81835599/674c0d30-9830-4ce1-b4fa-d0a94dc3d03c)
 ## Features
   * Multiple servers support
   * Online players
