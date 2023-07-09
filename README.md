@@ -13,6 +13,7 @@
   * Automated application updates
   * Change and save Cover Picture/Video in application (Option)
   * Add/remove IP/City in application (Option)
+  * Multi Languages
 
 #### About
   - Discord: [KayTea](https://discordapp.com/users/312463940628119552) (DM me if you have any question)
