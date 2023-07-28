@@ -1,5 +1,5 @@
 
-[![Static Badge](https://img.shields.io/badge/v2.3.5-download?label=download)](https://github.com/VlixK/K-Launcher/releases/download/2.3.5/Home-Setup-2.3.5.exe)
+[![Static Badge](https://img.shields.io/badge/v2.3.6-download?label=download)](https://github.com/VlixK/K-Launcher/releases/download/2.3.6/Home-Setup-2.3.6.exe)
 [![Static Badge](https://img.shields.io/badge/♥-label?label=preview)](https://github.com/VlixK/K-Launcher/tree/main/preview)
 
 
