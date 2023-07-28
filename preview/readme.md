@@ -10,6 +10,11 @@
 ![image](https://github.com/VlixK/K-Launcher/assets/81835599/35343801-fb58-48f5-a525-13dc231583d1)
 ![image](https://github.com/VlixK/K-Launcher/assets/81835599/c5e64a20-09de-463f-a328-0f8fb66f99fc)
 
+#### Delete Cache
+![image](https://github.com/VlixK/K-Launcher/assets/81835599/90e558b4-6b11-4621-9b40-d38c2741476b)
+- Cache Only
+- Cache and folder in appdata (CitizenFX)
+- All
 
 #### Settings
 Enable/disable settings
