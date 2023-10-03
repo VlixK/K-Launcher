@@ -1,6 +1,9 @@
 ### Homepage
 ![image](https://github.com/VlixK/K-Launcher/assets/81835599/674c0d30-9830-4ce1-b4fa-d0a94dc3d03c)
 
+#### Players View
+![image](https://github.com/VlixK/K-Launcher/assets/81835599/68d22f59-9732-4564-8d8d-1000fb15d6be)
+
 #### Button
 ![Screenshot 2023-07-03 012916](https://github.com/VlixK/K-Launcher/assets/81835599/5eaecc90-5577-4353-bfd5-126b7abcf1f0)
 
