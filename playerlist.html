@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Content-Security-Policy" content="script-src 'self' 'unsafe-inline';" />
+    <link rel="stylesheet" href="styles/main.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script> -->
+    <script>
+        if (typeof module === 'object') {
+            window.module == module;
+            module = undefined;
+        }
+    </script>
+    <script src="./jquery.js"></script>
+    <script>if (window.module) module = window.module;
+    </script>
+    <script defer src="render.js"></script>
+    <style>
+        table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        th,
+        td {
+            border: 1px solid #ddd;
+            padding: 3px;
+        }
+
+        th {
+            background-color: #245d9e;
+        }
+
+        input[type=text],
+        select {
+            padding: 5px 5px;
+            margin: 4px 0;
+            width: 20%;
+            display: inline-block;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+
+        .PlayerList {
+            background-color: #000000;
+            text-align: center;
+            line-height: 70px;
+            width: 100%;
+            position: absolute;
+            top: 0;
+            left: 0;
+            display: flex;
+            flex-direction: row;
+            justify-content: flex-end;
+            align-items: center;
+            column-gap: 1.5rem;
+            padding: 2.5rem;
+        }
+
+        .dragablePlayerList {
+            /* background-color: #ffffff; */
+            text-align: center;
+            line-height: 70px;
+            width: 68%;
+            position: absolute;
+            top: 0;
+            left: 9rem;
+            display: flex;
+            flex-direction: row;
+            justify-content: flex-end;
+            align-items: center;
+            column-gap: 1.5rem;
+            padding: 2.5rem;
+            z-index: 1;
+            -webkit-app-region: drag;
+        }
+    </style>
+    <title>Player List</title>
+</head>
+
+<body>
+    <div id="mainview"></div>
+    <div>
+        <div class="PlayerList" style="margin-top: 0rem; position: fixed;"></div>
+        <div class="dragablePlayerList" style="margin-top: 0rem; position: fixed;"></div>
+        <div class="fixed-head">
+            <header class="win-hr-btns" style="margin-top: 0rem; position: fixed;">
+                <span onclick="closePlayerListNe()" style="cursor: pointer; " class="material-icons">close</span>
+            </header>
+
+            <div class="position: absolute;"><input type="text" id="searchInput" placeholder=""
+                    style="position: fixed; margin-top: -3.5rem; margin-left: 1rem;"></div>
+            <h2 id="innerHeaderPlayerList" style="text-align: center; margin-left: 11rem; margin-top: -3.5rem; position: fixed;"></h2>
+        </div>
+
+    </div>
+
+    <table id="myTable" style="margin-top: 5.5rem;" class="">
+        <thead>
+            <tr>
+                <th>SEQ</th>
+                <th>ID</th>
+                <th>Name</th>
+            </tr>
+        </thead>
+        <tbody>
+        </tbody>
+    </table>
+
+    <script>
+        const { ipcRenderer } = require('electron');
+        const playerListToShow = require("c://Temporary//Home-Launcher//settings//players.json");
+        const fs = require('fs');
+        const ini = require('ini');
+        const getSettings = "c://Temporary//Home-Launcher//settings//config.ini";
+
+        const iniContent = fs.readFileSync(getSettings, 'utf-8');   // Read file ini
+        const config = ini.parse(iniContent);                       // Parse file
+        const databaseConfig = config.Launcher;                     // Read file ini which tag 'Launcher'
+        const langFile = require(`c://Temporary//Home-Launcher//settings//languages//${databaseConfig.language}.json`);
+        // window.alert(playerListToShow.length);
+
+        document.getElementById('innerHeaderPlayerList').innerText = langFile.innerHeaderPlayerList;
+        document.getElementById('searchInput').placeholder = langFile.placeholderSearchPlayerList;
+
+        //Check double player
+        var mm = playerListToShow.filter(
+            (value, index, self) =>
+                index === self.findIndex((t) => t.id === value.id),
+        );
+
+        // window.alert(mm.length);
+        playerlist = document.getElementById('myTable');
+        function playerList() {
+
+            if (!mm[0].name.includes('Anon')) {
+                for (let i = 0; i < mm.length; i++) {
+                    playerlist.innerHTML += '<tr> <td style="text-align: center; padding: 1px;">' + i + '</td> <td style="text-align: center;"> ' + mm[i].id + '</td> <td>' + mm[i].name + '</td> </tr>';
+                }
+            } else {
+                // If server showing player as Anon
+                playerlist.innerHTML += `<tr style="text-align: left;"> <td style="text-align: left;">1</td> <td>${langFile.textPlayerListPrivateServer}</td> <td></td> </tr>`;
+            }
+        }
+        playerList();
+
+        function closePlayerListNe() {
+            ipcRenderer.send("playerListClose")
+        }
+
+        var searchInput = document.getElementById("searchInput");
+        var table = document.getElementById("myTable");
+        var rows = table.getElementsByTagName("tr");
+
+        // Search box
+        searchInput.addEventListener("keyup", function () {
+            var keyword = searchInput.value.toLowerCase();
+
+            for (var i = 1; i < rows.length; i++) {
+                var rowData = rows[i].getElementsByTagName("td");
+                var found = false;
+
+                for (var j = 0; j < rowData.length; j++) {
+                    if (rowData[j].innerHTML.toLowerCase().indexOf(keyword) > -1) {
+                        found = true;
+                        break;
+                    }
+                }
+
+                if (found) {
+                    rows[i].style.display = "";
+                } else {
+                    rows[i].style.display = "none";
+                }
+            }
+        });
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="Content-Security-Policy" content="script-src 'self' 'unsafe-inline';" />
+  <link rel="stylesheet" href="styles/main.css">
+  <link rel="stylesheet" href="styles/custom.css">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <script>
+    if (typeof module === 'object') {
+      window.module == module;
+      module = undefined;
+    }
+  </script>
+  <script src="./jquery.js"></script>
+  <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
+  <script>
+    if (window.module) module = window.module;
+  </script>
+  <script defer src="render.js"></script>
+
+  <style>
+    .vertical-slider {
+      writing-mode: bt-lr;
+      transform: rotate(90deg);
+      height: 60%;
+      -webkit-appearance: slider-vertical;
+      appearance: slider-vertical;
+    }
+
+    .vertical-sliderVolume {
+      writing-mode: bt-lr;
+      transform: rotate(0deg);
+      position: fixed;
+      -webkit-appearance: slider-vertical;
+      appearance: slider-vertical;
+    }
+
+    .current-time {
+      position: absolute;
+      bottom: 10px;
+      right: 10px;
+      background-color: rgba(0, 0, 0, 0.5);
+      color: #fff;
+      padding: 5px;
+      font-size: 10px;
+    }
+  </style>
+  <title>K Launcher</title>
+</head>
+
+<body>
+  <div id="mainview"></div>
+
+  <div class="fixed-head">
+
+    <div class="draglauncher"></div>
+    <header class="win-hr-btns">
+      <span onclick="" style="cursor: pointer;" title="" id="removeImg"><img src="./img/remove-image-64.png"
+          style="border-color: white; " width="25" height="25"></img></span>
+      <span onclick="" style="cursor: pointer;" title="" id="reloadSV"><img src="./img/download-from-cloud.png"
+          style="border-color: white; " width="25" height="25"></img></span>
+      <span onclick="location.reload()" style="cursor: pointer;" title="" id="reloadLauncher"><img
+          src="./img/reload-64.png" style="border-color: white; " width="25" height="25"></img></span>
+      <span onclick="minimizeApp()" onmouseenter="this.style = 'cursor: pointer; color: red;'"
+        onmouseout="this.style = 'cursor: pointer; color: white;'" class="material-icons">minimize</span>
+      <span onclick="closeApp()" onmouseenter="this.style = 'cursor: pointer; color: red;'"
+        onmouseout="this.style = 'cursor: pointer; color: white;'" class="material-icons">close</span>
+    </header>
+
+    <div>
+      <input type="range" id="volumeSlider" class="vertical-sliderVolume playerBar"
+        style="margin-top: 24rem; margin-right: 21.25rem; display: none;" min="0" max="1" step="0.1" value="0"
+        title="Volume">
+      <span onclick="" style="cursor: pointer; margin-top: 32.5rem; margin-right: 24.5rem;" title="On/Off Sound"
+        id="soundButton" class="playerBar"><img id="soundImg" src="./img/sound-off-64.png" style="border-color: white; "
+          width="25" height="25"></img></span>
+      <span onclick="" style="cursor: pointer; margin-top: 32.5rem; margin-right: 22.5rem;" title="Play/Pause"
+        id="playPauseButton" class="playerBar"><img id="playPauseImg" src="./img/pause-button-50.png"
+          style="border-color: white; " width="25" height="25"></img></span>
+      <input type="range" id="seekSlider" min="0" step="0.1" class="vertical-slider playerBar"
+        style="margin-top: 23rem; margin-right: 8rem;" title="Tua">
+      <span id="current-time-video" class="playerBar"
+        style="margin-top: 34rem; margin-right: 20rem; font-size: 12px;">0</span>
+      <span id="time-video" class="playerBar"
+        style="margin-top: 34rem; margin-right: 17.5rem; font-size: 12px;">/0</span>
+    </div>
+
+    <div class="modDiv" style="margin-top: 40.5rem; margin-right: 7.8rem; display: none;" id="showModDir">
+      <a onclick="gta5Location()" style="cursor:pointer; padding: .2rem;" id="gta5Dir"><img src="./img/gta-5.png"
+          width="30" height="30" id="imgGTA5Path" title="" /></a>
+      <a onclick="fiveMMod()" style="cursor:pointer; padding: .2rem;" id="fiveMDir"><img src="./img/fivem.png"
+          width="30" height="30" id="imgFiveMPath" title="" /></a>
+    </div>
+
+    <div class="img-overlay" id="coverView">
+
+      <!--<img class="sv-logo" src="./img/ny-logo2.png"/> -->
+      <!-- <img class="header-img" id="thumbnil"  src="img/b.png" alt="image"/> -->
+      <img id="image-preview" src="" class="header-img" style="display: flex;"></img>
+      <video src="" id="video-preview" class="header-img" loop autoplay style="display: flex;" muted></video>
+
+      <div class="fade1" id="fade" style="top: 31rem;"></div>
+    </div>
+
+    <div class="card-wrapper" id="cnt">
+      <!-- <span onclick="serverSwitcher(0)" id="la" style="display: none;" class="material-icons">arrow_back_ios</span> -->
+      <div class="card-container">
+        <!-- TODO: THIS BOTTOM TAG WILL CHANGE THE COLOR AND BOX SHADOW WITH JAVASCRIPT -->
+        <span id="sv-stat" class="sv-stat animStatus"></span>
+        <a onclick="" style="cursor:pointer; padding: 0 2rem 0 1rem" id="sv-players"><img src="./img/people-96.png"
+            width="35" height="35" title="" id="imgShowPlayers" /></a>
+        <img src="https://cdnjs.cloudflare.com/ajax/libs/emojione/2.2.6/assets/png/1f40c.png" width="35" height="35"
+          id="imgServer" class="rotate-SVIMG" />
+        <span id="sv-name" class="sv-name text-rainbow-animation"
+          style="font-weight: bold; text-align: center; user-select: none; padding: 0 1rem 0 0">Server</span>
+        <span style="cursor: pointer; font-size: 30px;" id="sv-join" class="material-icons"
+          title="">hourglass_empty</span>
+      </div>
+      <!-- <span onclick="serverSwitcher(1)" id="lr" style="display: none;" class="material-icons">arrow_forward_ios</span> -->
+    </div>
+
+  </div>
+
+
+  <div class="players-wrapper" id="players-wrapper">
+    <h2 id="helloText" style="z-index: 1; user-select: none;">loading</h2>
+    <h2 id="nguoichoi" class="player-online" style="user-select: none;">loading...................</h2>
+    <div id="plist" class="">
+      <!--PLAYER LIST HERE BUT MOVED TO PLAYERLIST.HTML-->
+    </div>
+
+
+    <div class="bottom-left">
+      <a id="version" title="Version" style="font-size: small; user-select: none;"></a>
+    </div>
+
+    <div class="bottom-info">
+
+      <a onclick="" style="cursor:pointer; padding: .5rem; margin-right: 25rem;" id="forNY"><img
+          src="./img/ny-logo2.png" width="35" height="35" title="For Ny" /></a>
+
+      <a onclick="" style="cursor:pointer; padding: .5rem;" id="changeIP" title=""><img src="./img/ipadress.png"
+          width="35" height="35" /></a>
+
+      <a style="cursor:pointer; padding: 0.5rem; border: none; background: none;" id="getPathImage" title=""><img
+          src="./img/image-logo.png" width="35" height="35" /></a>
+
+      <a style="padding: .5rem; z-index: 4;" id="fiveMMode"><img src="./img/mod.png" width="35" height="35"
+          title="Mods FiveM/GTA5" /> </a>
+
+      <!-- <a onclick="alertFunction('deleteCache')" style="cursor:pointer; padding: .5rem;" id="deleteCacheFM" title=""><img
+          src="./img/bin.png" width="35" height="35" /> </a> -->
+
+      <a onclick="openCacheWindow()" style="cursor:pointer; padding: .5rem;" id="deleteCacheFM" title=""><img
+          src="./img/bin.png" width="35" height="35" /> </a>
+
+      <a onclick="" style="cursor:pointer; padding: .5rem;" id="aboutclick"><img src="./img/setting-64.png" width="35"
+          height="35" title="Setting" /></a>
+
+    </div>
+
+    <div id="notification" class="hidden">
+      <p id="message" style="user-select: none;"></p>
+      <!-- <button id="close-button" onClick="closeNotification()" class="button-32">
+          Không
+        </button> -->
+      <button id="restart-button" onClick="restartApp()" class="hidden" style="width: 70%">
+
+      </button>
+    </div>
+
+    <script>
+      const settingsPathI = 'c:/Temporary/Home-Launcher/settings';
+      const fsI = require('fs');
+      const iniI = require('ini');
+      const getSettingI = "c:/Temporary/Home-Launcher/settings/config.ini";   // Path ini file
+
+      const iniContentI = fsI.readFileSync(getSettingI, 'utf-8');             // Read file ini
+      const configI = iniI.parse(iniContentI);                                // Parse file
+      const databaseConfigI = configI.Launcher;                               // Read file ini which tag 'Launcher'
+
+      // Try JSON
+      $.getJSON(`${settingsPathI}/languages/${databaseConfigI.language}.json`, function (data) {
+        document.getElementById('removeImg').title = data.titleBtnReloadIMG;
+        document.getElementById('reloadSV').title = data.titleBtnReloadIP;
+        document.getElementById('reloadLauncher').title = data.titleBtnReloadLauncher;
+        document.getElementById('imgGTA5Path').title = data.titleBtnGTAPath;
+        document.getElementById('imgFiveMPath').title = data.titleBtnFiveMPath;
+        document.getElementById('imgShowPlayers').title = data.titleBtnShowPlayer;
+        document.getElementById('sv-join').title = data.titleBtnPlay;
+        document.getElementById('changeIP').title = data.titleBtnChangeIP;
+        document.getElementById('getPathImage').title = data.titleBtnChangeIMG;
+        document.getElementById('deleteCacheFM').title = data.titleBtnDeleteCache;
+        document.getElementById('restart-button').innerText = data.innerTextBtnReopenAfterUpdate;
+      });
+
+      function confirmdNY() {
+        if (confirm("Bà à?")) {
+          confirmNY();
+        }
+      }
+
+      function test() {
+        alert("đây nè");
+      }
+
+      const playersWrapper = document.getElementById("players-wrapper");
+      const baoCuaKy = document.getElementById("helloText");
+      const fade = document.getElementById("fade");
+      const video = document.getElementById("video-preview");
+      const playPauseButton = document.getElementById("playPauseButton");
+      const playPauseImg = document.getElementById("playPauseImg");
+      const currentTimeDisplay = document.getElementById("current-time-video");
+      const totalVideoTime = document.getElementById("time-video");
+      const soundButton = document.getElementById("soundButton");
+      const soundButtonImg = document.getElementById("soundImg");
+      const volumeSlider = document.getElementById("volumeSlider");
+      const seekSlider = document.getElementById("seekSlider");
+      const ctner = document.getElementById("cnt");
+      const fiveMMode = document.getElementById("fiveMMode");
+      const showModDir = document.getElementById("showModDir");
+      const gta5Dir = document.getElementById("gta5Dir");
+      const fiveMDir = document.getElementById("fiveMDir");
+      const deleteCacheFM = document.getElementById("deleteCacheFM");
+      const getPathImage = document.getElementById("getPathImage");
+
+      video.volume = "0";
+
+      deleteCacheFM.addEventListener("mouseover", function () {
+        showModDir.style.display = "none";
+      });
+      getPathImage.addEventListener("mouseover", function () {
+        showModDir.style.display = "none";
+      });
+      fiveMMode.addEventListener("mouseover", function () {
+        showModDir.style.display = "flex";
+      });
+      showModDir.addEventListener("mouseleave", function () {
+        showModDir.style.display = "none";
+      });
+      soundButton.addEventListener("mouseover", function () {
+        volumeSlider.style.display = "block";
+      });
+      ctner.addEventListener("mouseover", function () {
+        volumeSlider.style.display = "none";
+      });
+      playPauseButton.addEventListener("mouseover", function () {
+        volumeSlider.style.display = "none";
+      });
+      video.addEventListener("mouseover", function () {
+        volumeSlider.style.display = "none";
+      });
+      baoCuaKy.addEventListener("mouseover", function () {
+        volumeSlider.style.display = "none";
+      });
+      playersWrapper.addEventListener("mouseover", function () {
+        volumeSlider.style.display = "none";
+      });
+      volumeSlider.addEventListener("mouseover", function () {
+        volumeSlider.style.display = "block";
+      });
+      volumeSlider.addEventListener("mouseout", function () {
+        volumeSlider.style.display = "none";
+      });
+
+      video.onloadedmetadata = function () {
+        const totalDuration = formatTime(video.duration);
+        totalVideoTime.textContent = "/ " + totalDuration;
+      };
+
+      soundButton.addEventListener("click", function () {
+        video.muted = !video.muted;
+
+        if (video.muted) {
+          // soundButton.textContent = 'Unmute';
+          soundButtonImg.src = "./img/sound-off-64.png";
+        } else {
+          // soundButton.textContent = 'Mute';
+          soundButtonImg.src = "./img/sound-on-64.png";
+        }
+      });
+
+      volumeSlider.addEventListener("input", function () {
+        video.volume = volumeSlider.value;
+        if (video.volume === 0) {
+          video.muted = true;
+          soundButtonImg.src = "./img/sound-off-64.png";
+        } else {
+          video.muted = false;
+          soundButtonImg.src = "./img/sound-on-64.png";
+        }
+      });
+
+      playPauseButton.addEventListener("click", function () {
+        if (video.paused) {
+          video.play();
+          playPauseImg.src = "./img/pause-button-50.png";
+        } else {
+          video.pause();
+          playPauseImg.src = "./img/play-button-96.png";
+        }
+      });
+
+      video.addEventListener("loadedmetadata", function () {
+        seekSlider.setAttribute("max", video.duration);
+
+      });
+      video.addEventListener("timeupdate", function () {
+        seekSlider.value = video.currentTime;
+        const currentTimes = formatTime(video.currentTime);
+        currentTimeDisplay.textContent = currentTimes;
+      });
+
+      seekSlider.addEventListener("input", function () {
+        video.currentTime = seekSlider.value;
+      });
+
+      function formatTime(time) {
+        const minutes = Math.floor(time / 60);
+        const seconds = Math.floor(time % 60);
+        return `${padZero(minutes)}:${padZero(seconds)}`;
+      }
+
+      function padZero(number) {
+        return number.toString().padStart(2, '0');
+      }
+
+    </script>
+</body>
+
+</html>

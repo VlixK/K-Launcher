@@ -1,0 +1,609 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Content-Security-Policy" content="script-src 'self' 'unsafe-inline';" />
+    <link rel="stylesheet" href="styles/main.css">
+    <link rel="stylesheet" href="styles/custom.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <script>
+        if (typeof module === 'object') {
+            window.module == module;
+            module = undefined;
+        }
+    </script>
+    <script src="jquery.js"></script>
+    <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
+    <script>if (window.module) module = window.module;
+    </script>
+    <script defer src="/render.js"></script>
+    <style>
+        /* input[type=text],
+        select {
+            padding: 10px 15px;
+            margin: 8px 0;
+            display: inline-block;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+
+        input[type=submit] {
+            width: 90%;
+            background-color: #4CAF50;
+            color: white;
+            padding: 14px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        input[type=submit]:hover {
+            background-color: #8bdd8f;
+        } */
+
+        body {
+            margin: 0;
+            height: 100%;
+            color: #6a6f8c;
+            background: #c8c8c8;
+            font: 600 16px/18px 'Open Sans', sans-serif;
+        }
+
+        *,
+        :after,
+        :before {
+            box-sizing: border-box
+        }
+
+        .clearfix:after,
+        .clearfix:before {
+            content: '';
+            display: table
+        }
+
+        .clearfix:after {
+            clear: both;
+            display: block
+        }
+
+        a {
+            color: inherit;
+            text-decoration: none
+        }
+
+        .ip-wrap {
+            width: 100%;
+            margin: auto;
+            max-width: 525px;
+            min-height: 670px;
+            position: relative;
+            background: url(./img/bg01.jpg) no-repeat center;
+            background-size: cover;
+            box-shadow: 0 12px 15px 0 rgba(0, 0, 0, .24), 0 17px 50px 0 rgba(0, 0, 0, .19);
+        }
+
+        .ip-html {
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            padding: 90px 70px 50px 70px;
+            background: rgba(40, 57, 101, .9);
+        }
+
+        .ip-html .add-htm,
+        .ip-html .default-remove-htm {
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            position: absolute;
+            transform: rotateY(180deg);
+            backface-visibility: hidden;
+            transition: all .4s linear;
+        }
+
+        .ip-html .addIP,
+        .ip-html .default-remove,
+        .ip-form .group .check {
+            display: none;
+        }
+
+        .ip-html .tab,
+        .ip-form .group .label,
+        .ip-form .group .button {
+            text-transform: uppercase;
+        }
+
+        .ip-html .tab {
+            font-size: 13px;
+            margin-right: 10px;
+            padding-bottom: 5px;
+            margin: 0 15px 10px 0;
+            display: inline-block;
+            border-bottom: 2px solid transparent;
+        }
+
+        .ip-html .addIP:checked+.tab,
+        .ip-html .default-remove:checked+.tab {
+            color: #fff;
+            border-color: #1161ee;
+        }
+
+        .ip-form {
+            min-height: 345px;
+            position: relative;
+            perspective: 1000px;
+            transform-style: preserve-3d;
+        }
+
+        .ip-form .group {
+            margin-bottom: 15px;
+        }
+
+        .ip-form .group .label,
+        .ip-form .group .input,
+        .ip-form .group .button {
+            width: 100%;
+            height: auto;
+            color: #fff;
+            display: block;
+        }
+
+        .ip-form .group .inputInline {
+            width: 100%;
+            height: auto;
+            color: #fff;
+            display: inline-block;
+        }
+
+        .ip-form .group .input,
+        .ip-form .group .button {
+            border: none;
+            padding: 15px 20px;
+            border-radius: 15px;
+            background: rgba(255, 255, 255, .1);
+        }
+
+        /* .ip-form .group input[data-type="password"]{
+	text-security:circle;
+	-webkit-text-security:circle;
+} */
+        .ip-form .group .label {
+            color: #aaa;
+            font-size: 12px;
+        }
+
+        .ip-form .group .button {
+            background: #1161ee;
+        }
+
+        .ip-form .group .buttonRed {
+            width: 100%;
+            height: auto;
+            color: #fff;
+            display: block;
+            border: none;
+            padding: 15px 20px;
+            border-radius: 15px;
+            text-transform: uppercase;
+            background: #c5112f;
+        }
+
+        .ip-form .group .button:hover {
+            background: #0a3d94;
+        }
+
+        .ip-form .group .buttonRed:hover {
+            width: 100%;
+            height: auto;
+            color: #fff;
+            display: block;
+            border: none;
+            padding: 15px 20px;
+            border-radius: 15px;
+            text-transform: uppercase;
+            background: #690819;
+        }
+
+        .ip-form .group label .icon {
+            width: 15px;
+            height: 5px;
+            border-radius: 2px;
+            position: relative;
+            display: inline-block;
+            background: rgba(255, 255, 255, .1);
+        }
+
+        .ip-form .group label .icon:before,
+        .ip-form .group label .icon:after {
+            content: '';
+            width: 10px;
+            height: 2px;
+            background: #fff;
+            position: absolute;
+            transition: all .2s ease-in-out 0s;
+        }
+
+        .ip-form .group label .icon:before {
+            left: 3px;
+            width: 5px;
+            bottom: 6px;
+            transform: scale(0) rotate(0);
+        }
+
+        .ip-form .group label .icon:after {
+            top: 6px;
+            right: 0;
+            transform: scale(0) rotate(0);
+        }
+
+        .ip-form .group .check:checked+label {
+            color: #fff;
+        }
+
+        .ip-form .group .check:checked+label .icon {
+            background: #1161ee;
+        }
+
+        .ip-form .group .check:checked+label .icon:before {
+            transform: scale(1) rotate(45deg);
+        }
+
+        .ip-form .group .check:checked+label .icon:after {
+            transform: scale(1) rotate(-45deg);
+        }
+
+        .ip-html .addIP:checked+.tab+.default-remove+.tab+.ip-form .add-htm {
+            transform: rotate(0);
+        }
+
+        .ip-html .default-remove:checked+.tab+.ip-form .default-remove-htm {
+            transform: rotate(0);
+        }
+
+        .hr {
+            height: 2px;
+            margin: 60px 0 50px 0;
+            background: rgba(255, 255, 255, .2);
+        }
+
+        .foot-lnk {
+            text-align: center;
+        }
+    </style>
+
+    <title>About</title>
+</head>
+
+<body>
+    <!-- <div id="mainview"></div> -->
+    <div class="dragable1"></div>
+
+
+    <div class="ip-wrap">
+
+        <div class="closeIP">
+
+            <span onclick="location.reload()" style="cursor: pointer; margin-left: -10px; margin-top: 10px;" title=""
+                id="reloadLauncher"><img src="./img/reload-64.png" style="border-color: white; " width="25"
+                    height="25"></img></span>
+            <span onclick="closeipne()" style="cursor: pointer; margin-left: 10px; color: white; margin-top: 10px;"
+                class="material-icons"
+                onmouseenter="this.style = 'cursor: pointer; margin-left: 10px; color: red; margin-top: 10px;'"
+                onmouseout="this.style = 'cursor: pointer; margin-left: 10px; color: white; margin-top: 10px;'"
+                id="closeip">close</span>
+
+        </div>
+
+        <div class="ip-html">
+            <!-- <h3 style="text-align: center; margin-top: 4rem;" id="innerTextAddRemoveIP">Add And Remove Server:</h3> -->
+            <input id="tab-1" type="radio" name="tab" class="addIP" checked><label for="tab-1" class="tab" id="innerTabAdd">Add
+                IP</label>
+            <input id="tab-2" type="radio" name="tab" class="default-remove"><label for="tab-2"
+                class="tab" id="innerTabMoveRemove">Move/Remove</label>
+            <div class="ip-form">
+                <div class="add-htm">
+                    <div class="group">
+                        <label for="citynameinput" class="label" id="innerTextServerName">Server Name</label>
+                        <input id="citynameinput" type="text" class="input">
+                    </div>
+                    <div class="group">
+                        <label for="citycode" class="label" id="innerTextServerCode">Server Code</label>
+                        <input id="citycode" type="text" class="input" maxlength="6">
+                    </div>
+                    <div class="group">
+                        <label for="cityip" class="label" id="innerTextServerIP">Server IP</label>
+                        <input id="cityip" type="text" class="input">
+                    </div>
+                    <div class="group">
+                        <label for="serverimage" class="label" id="innerTextServerImg">Server Image</label>
+
+                        <input id="serverimage" type="text" class="input" value="">
+                        <a style="cursor:pointer; color: #aaa;" id="btnImg" title=""><img src="./img/image-logo.png"
+                                width="35" height="35" id="innerBtnImgIP"></img></a>
+
+                    </div>
+
+                    <!-- <div class="group">
+                        <input id="check" type="checkbox" class="check" checked>
+                        <label for="check"><span class="icon"></span> Check me</label>
+                    </div> -->
+                    <div class="group">
+                        <input type="submit" class="button" value="Add IP" id="btnAddIP">
+                    </div>
+                    <div class="hr"></div>
+                    <div class="foot-lnk">
+                        <!-- <a href="#link">See something?</a> -->
+                        <a style="cursor: pointer; color: #aaa;" id="questionCode"
+                            onmouseenter="this.style = 'cursor: pointer; color: #ac9090;'"
+                            onmouseout="this.style = 'cursor: pointer; color: #aaa;'">❓Code</a>
+                        <a style="cursor: pointer; color: #aaa;"> | </a>
+                        <a style="cursor: pointer; color: #aaa;" id="questionIP"
+                            onmouseenter="this.style = 'cursor: pointer; color: #ac9090;'"
+                            onmouseout="this.style = 'cursor: pointer; color: #aaa;'">❓IP</a>
+                        <a style="cursor: pointer; color: #aaa;"> | </a>
+                        <a style="cursor: pointer; color: #aaa;" id="questionImage"
+                            onmouseenter="this.style = 'cursor: pointer; color: #ac9090;'"
+                            onmouseout="this.style = 'cursor: pointer; color: #aaa;'">❓Image</a>
+                    </div>
+
+                </div>
+                <div class="default-remove-htm">
+                    <div class="select" style="margin-top: 1rem;">
+                        <select id="selectIP" onchange="cityname(this.value)" style="cursor: pointer;">
+                            <option value="" id="chooseOption" selected disabled>Choose Server</option>
+                        </select>
+                    </div>
+                    <div class="group">
+                        <input type="submit" class="button" value="Move" id="btnSetDefault" style="margin-top: 2rem;"
+                            onclick="setDefault()">
+                        <input type="submit" class="buttonRed" value="Delete" id="btnDeleteIP"
+                            style="margin-top: -3rem;" onclick="deleteIP()">
+                    </div>
+                    <div class="hr"></div>
+                    <div class="foot-lnk">
+                        <!-- <label for="tab-1">Already Member?</a> -->
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Old Version -->
+    <!-- <h3 style="text-align: center; margin-top: 4rem;" id="innerTextAddRemoveIP">Add And Remove Server:</h3>
+
+
+    <div class="card-container" style="margin-top: 2rem; width:90%; margin-left: auto; margin-right: auto;">
+        <h6 style="font-size: 15px;" id="innerTextServerName">Server Name</h6>
+        <input
+            style="width: 17rem; height: 2rem; margin: 8px 0; display: inline-block; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box; font-size: 15px;"
+            placeholder="" oninput="this.className = ''" id="citynameinput">
+    </div>
+
+    <div class="card-container" style="width:90%; margin-left: auto; margin-right: auto;">
+        <h6 style="font-size: 15px;" id="innerTextServerCode">Server Code</h6>
+        <h6 style="font-size: 15px; margin-left: 25px; cursor: pointer;" id="questionCode">❓</h6>
+        <p><input
+                style="width: 17rem; height: 2rem; margin: 8px 0; display: inline-block; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box; font-size: 15px;"
+                placeholder="" oninput="this.className = ''" id="citycode" maxlength="6">
+        </p>
+    </div>
+    <div class="card-container" style="width:90%; margin-left: auto; margin-right: auto;">
+        <h6 style="font-size: 15px;" id="innerTextServerIP">Server IP</h6>
+        <h6 style="font-size: 15px; cursor: pointer;" id="questionIP">❓</h6>
+        <p><input
+                style="width: 17rem; height: 2rem; margin: 8px 0; display: inline-block; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box; font-size: 15px;"
+                placeholder="" oninput="this.className = ''" id="cityip">
+        </p>
+    </div>
+    <div class="card-container" style="background-color: #0c2346; justify-content: center; width: auto;">
+        <a class="button-32" style="font-size: larger; padding: 14px 20px;"
+            id="btnAddIP">Add Server</a>
+    </div>
+
+    
+        <div class="select" style="display: flex; justify-content: center; width: 100%; margin-top: 1rem; font-size: 1.1em;">
+            <select id="selectIP" onchange="cityname(this.value)" style="cursor: pointer;">
+                <option value="" id="chooseOption" selected disabled>Choose Server</option>
+            </select>
+        </div>
+    
+    <div style="margin-top: 1rem; display: flex; justify-content: center; width: 100%;">
+        <a style=" background-color: #4CAF50; color: white; padding: 14px 20px; border: none; border-radius: 4px; cursor: pointer;"
+            id="btnSetDefault" onclick="setDefault()">Set Default</a>
+        <a style="margin-left: 10px; background-color: #bb2b4f; color: white; padding: 14px 20px; border: none; border-radius: 4px; cursor: pointer;"
+            id="btnDeleteIP" onclick="deleteIP()">Delete Server</a>
+    </div> -->
+
+    <script>
+
+        const serverJSON = require("c:/Temporary/Home-Launcher/settings/servers.json");
+        const ipcRenderer = require("electron").ipcRenderer;
+        const fs = require('fs');
+        const ini = require('ini');
+        const getSettings = "c:/Temporary/Home-Launcher/settings/config.ini";
+
+        const iniContent = fs.readFileSync(getSettings, 'utf-8');   // Read file ini
+        const config = ini.parse(iniContent);                       // Parse file
+        const databaseConfig = config.Launcher;                     // Read file ini which tag 'Launcher'
+        const langFile = require(`c:/Temporary/Home-Launcher/settings/languages/${databaseConfig.language}.json`);
+
+
+        document.getElementById('reloadLauncher').title = langFile.titleBtnReloadLauncher;
+        // document.getElementById('innerTextAddRemoveIP').innerText = langFile.innerTextAddRemoveIP;
+        document.getElementById('innerTextServerName').innerText = langFile.innerTextServerName;
+        document.getElementById('citynameinput').placeholder = langFile.placeholderServerName;
+        document.getElementById('innerTextServerCode').innerText = langFile.innerTextServerCode;
+        document.getElementById('citycode').placeholder = langFile.placeholderServerCode;
+        document.getElementById('innerTextServerIP').innerText = langFile.innerTextServerIP;
+        document.getElementById('cityip').placeholder = langFile.placeholderServerIP;
+        document.getElementById('btnAddIP').value = langFile.innerTextbtnAddIP;
+        document.getElementById('chooseOption').innerText = langFile.innerTextchooseOption;
+        document.getElementById('btnSetDefault').value = langFile.innerTextbtnSetDefault;
+        document.getElementById('btnDeleteIP').value = langFile.innerTextbtnDeleteIP;
+        document.getElementById('serverimage').placeholder = langFile.placeholderServerImg;
+        document.getElementById('innerTextServerImg').innerText = langFile.innerTextServerImg;
+        document.getElementById('questionCode').innerText = langFile.questionCode;
+        document.getElementById('questionIP').innerText = langFile.questionIP;
+        document.getElementById('questionImage').innerText = langFile.questionImage;
+        document.getElementById('btnImg').placeholder = langFile.innerbtnImg;
+        document.getElementById('innerTabAdd').innerText = langFile.innerTextbtnAddIP;
+        document.getElementById('innerTabMoveRemove').innerText = langFile.innerTextTabMoveRemove;
+        // window.alert(langFile.innerbtnImg);
+
+        document.getElementById("btnAddIP").addEventListener("click", () => {
+
+            let svIMG;
+            if (document.getElementById('serverimage').value == "") {
+                svIMG = "https://i.imgur.com/bAw1u65.png";
+            } else {
+                svIMG = document.getElementById('serverimage').value;
+            }
+
+            let newIP = [{
+                svname: document.getElementById('citynameinput').value,
+                code: document.getElementById('citycode').value,
+                ip: document.getElementById('cityip').value,
+                svimage: svIMG
+            }];
+            if (document.getElementById('citynameinput').value == "" || document.getElementById('citycode').value == "") {
+                alert(langFile.alertServerName);
+                ipcRenderer.send("changeIPClose");
+                ipcRenderer.send('changeIPOpen');
+            } else if (document.getElementById('citycode').value.length < 6 || document.getElementById('citycode').value.length > 7) {
+                alert(langFile.alertServerCode6Char);
+                ipcRenderer.send("changeIPClose");
+                ipcRenderer.send('changeIPOpen');
+            } else {
+                let lowercaseImage = svIMG.toLowerCase();
+                if (lowercaseImage.includes('.jpg') || lowercaseImage.includes('.png') || lowercaseImage.includes('.gif') 
+                || lowercaseImage.includes('.bmp') || lowercaseImage.includes('.webp') || lowercaseImage.includes('.ico') ) {
+                    if (confirm(langFile.addedServer)) {
+                        ipcRenderer.send("addNewIP", newIP);
+                    }
+                } else {
+                    alert(langFile.alertErrorGetIMGPath);
+                    ipcRenderer.send("changeIPClose");
+                    ipcRenderer.send('changeIPOpen');
+                }
+            }
+        });
+
+        function closeipne() {
+            ipcRenderer.send("changeIPClose")
+            ipcRenderer.send("reloadwin")
+        }
+
+        let getSV;
+
+        function citySeleted() {
+            var ele = document.getElementById('selectIP');
+            serverJSON.forEach(function (b) {
+                ele.innerHTML += '<option value="' + b.svname + '">' + b.svname + '</option>';
+
+            })
+
+        }
+        citySeleted();
+
+        function cityname(name) {
+            for (var i = 0; i < serverJSON.length; i++) {
+                if (String(name) === serverJSON[i].svname) {
+                    getSV = serverJSON[i].svname;
+                    break;
+                }
+
+            }
+        }
+        function deleteIP() {
+            if (!getSV) {
+                window.alert(langFile.alertChooseServerName);
+            } else {
+                if (confirm(langFile.alertConfirmDelete)) {
+                    window.alert(langFile.deletedServer);
+                    ipcRenderer.send('getSVNameToDelete', getSV);
+                }
+
+            }
+        }
+
+        function setDefault() {
+            if (!getSV) {
+                window.alert(langFile.alertChooseServerName);
+            } else {
+                ipcRenderer.send('getSVNameToDefault', getSV);
+                ipcRenderer.removeAllListeners('getSVNameToDefault');
+                // location.reload();
+                // document.getElementById('tab-1').checked;
+            }
+        }
+
+        document.getElementById('btnImg').addEventListener('click', () => {
+            ipcRenderer.send('open-fileIP');
+        })
+        ipcRenderer.on('selected-fileIP', function (event, fullpath) {
+            document.getElementById("serverimage").value = fullpath;
+            localStorage.setItem("savedIMG", fullpath);
+        })
+
+        document.getElementById('questionCode').title = langFile.iconQuestionCode;
+        document.getElementById('questionCode').addEventListener('click', () => {
+            alert(langFile.iconQuestionCode);
+            ipcRenderer.send("changeIPClose");
+            ipcRenderer.send('changeIPOpen');
+        })
+        document.getElementById('questionIP').title = langFile.iconQuestionIP;
+        document.getElementById('questionIP').addEventListener('click', () => {
+            alert(langFile.iconQuestionIP);
+            ipcRenderer.send("changeIPClose");
+            ipcRenderer.send('changeIPOpen');
+        })
+
+        document.getElementById('questionImage').title = langFile.iconQuestionImage;
+        document.getElementById('questionImage').addEventListener('click', () => {
+            alert(langFile.iconQuestionImage);
+            ipcRenderer.send("changeIPClose");
+            ipcRenderer.send('changeIPOpen');
+        })
+
+        //Save infor
+        var localSaveName = document.getElementById('citynameinput');
+        var localSaveCode = document.getElementById('citycode');
+        var localSaveIP = document.getElementById('cityip');
+        var localSaveIMG = document.getElementById('serverimage');
+
+        if (localStorage.getItem('savedName')) {
+            localSaveName.value = localStorage.getItem('savedName');
+        }
+        if (localStorage.getItem('savedCode')) {
+            localSaveCode.value = localStorage.getItem('savedCode');
+        }
+        if (localStorage.getItem('savedIP')) {
+            localSaveIP.value = localStorage.getItem('savedIP');
+        }
+        if (localStorage.getItem('savedIMG')) {
+            localSaveIMG.value = localStorage.getItem('savedIMG');
+        }
+        localSaveName.addEventListener("input", function () {
+            localStorage.setItem("savedName", localSaveName.value);
+        });
+        localSaveCode.addEventListener("input", function () {
+            localStorage.setItem("savedCode", localSaveCode.value);
+        });
+        localSaveIP.addEventListener("input", function () {
+            localStorage.setItem("savedIP", localSaveIP.value);
+        });
+        // localSaveIMG = document.getElementById('serverimage').value;
+        localSaveIMG.addEventListener("input", function () {
+            localStorage.setItem("savedIMG", localSaveIMG.value);
+        });
+
+    </script>
+</body>
+
+</html>

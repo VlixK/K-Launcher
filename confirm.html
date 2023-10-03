@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Content-Security-Policy" content="script-src 'self' 'unsafe-inline';" />
+    <link rel="stylesheet" href="styles/main.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <script>
+        if (typeof module === 'object') {
+            window.module == module;
+            module = undefined;
+        }
+    </script>
+    <script src="./jquery.js"></script>
+    <script>if (window.module) module = window.module;
+    </script>
+    <script defer src="render.js"></script>
+    <style>
+        input[type=submit] {
+            width: 50%;
+            background-color: #7a4caf;
+            color: white;
+            padding: 14px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        input[type=submit]:hover {
+            background-color: #602285;
+        }
+    </style>
+
+    <title>About</title>
+</head>
+
+<body>
+    <div id="mainview"></div>
+
+    <div class="">
+        <!--<img class="sv-logo" src="./img/ny-logo2.png"/> -->
+        <!-- <img class="header-img" id="thumbnil"  src="img/b.png" alt="image"/> -->
+        <!-- <img id="header-img"  src="img/b.gif"/> -->
+
+    </div>
+
+    <div class="fixed-head">
+
+        <header class="win-hr-btns">
+            <span onclick="closeConfirmNY()" style="cursor: pointer; margin-top: 0; margin-right: 1rem;"
+                class="material-icons">close</span>
+        </header>
+
+    </div>
+
+    </div>
+    <!-- <h5 style="margin-left: auto; margin-right: auto;">
+        <input style="width: 17rem; height: 2rem; display: inline-block; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box;" placeholder="Ngày tháng năm sinh của bà (01/01/1000)" oninput="this.className = ''" id="confirm">
+    </h5> -->
+
+    <div class="card-container" style="width:90%; margin-left: auto; margin-right: auto;">
+        <input
+            style="width: 17rem; height: 2rem; display: inline-block; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box;"
+            placeholder="Ngày tháng năm sinh của bà (01/01/1000)" oninput="this.className = ''" id="confirm">
+    </div>
+
+    <h4 style="margin-left: 11.7rem; margin-top: 2rem; right: 0; width: 12rem; height: auto;">
+        <a style=" background-color: #4CAF50; color: white; padding: 14px 20px; border: none; border-radius: 4px; cursor: pointer;"
+            id="btnConfirm">Confirm</a>
+    </h4>
+
+    <!-- <h5 style="margin-bottom: auto; margin-top: 5rem; margin-left: 11rem;">Kevi#2922</h5> -->
+    <script>
+        document.getElementById('btnConfirm').addEventListener('click', () => {
+            if (document.getElementById('confirm').value == "02/04/1995" || document.getElementById('confirm').value == "2/4/1995" || document.getElementById('confirm').value == "04/02/1995" || document.getElementById('confirm').value == "4/2/1995" || document.getElementById('confirm').value == "2/4" || document.getElementById('confirm').value == "02/04" || document.getElementById('confirm').value == "4/2" || document.getElementById('confirm').value == "04/02") {
+                forNY();
+                ipcRenderer.send('closeConfirmWindow');
+            } else {
+                window.alert('Sai rồi!');
+                ipcRenderer.send('closeConfirmWindow');
+                ipcRenderer.send('openConfirmWindow');
+            }
+        })
+    </script>
+</body>
+
+</html>

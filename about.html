@@ -1,0 +1,551 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Content-Security-Policy" content="script-src 'self' 'unsafe-inline';" />
+    <link rel="stylesheet" href="styles/main.css">
+    <link rel="stylesheet" href="styles/custom.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <script>
+        if (typeof module === 'object') {
+            window.module == module;
+            module = undefined;
+        }
+    </script>
+    <script src="./jquery.js"></script>
+    <script>if (window.module) module = window.module;
+    </script>
+    <script defer src="render.js"></script>
+    <style>
+        .select::after {
+            content: '\25BC';
+            position: absolute;
+            top: -0.5em;
+            right: 0;
+            padding: 0 0.5em;
+            background: #2b2e2e;
+            cursor: pointer;
+            pointer-events: none;
+            transition: .25s all ease;
+        }
+
+        /* Style the tab */
+        .tab {
+            float: left;
+            position: fixed;
+            /* border: 1px solid #ccc; */
+            background-color: #0c2346;
+            width: 30%;
+            height: 100%;
+            margin-top: 2rem;
+        }
+
+        /* Style the buttons inside the tab */
+        .tab button {
+            display: block;
+            background-color: inherit;
+            color: black;
+            padding: 22px 16px;
+            width: 100%;
+            border: none;
+            outline: none;
+            text-align: left;
+            cursor: pointer;
+            transition: 0.3s;
+            font-size: 17px;
+        }
+
+        /* Change background color of buttons on hover */
+        .tab button:hover {
+            background-color: #0a244d;
+        }
+
+        /* Create an active/current "tab button" class */
+        .tab button.active {
+            background-color: #071529;
+        }
+
+        /* Style the tab content */
+        .tabcontent {
+
+            float: left;
+            padding: 0px 12px;
+            /* border: 1px solid #ccc; */
+            width: 70%;
+            border-left: none;
+            height: 100%;
+            margin-left: 15rem;
+            margin-top: 2rem;
+        }
+    </style>
+
+    <title>About</title>
+</head>
+
+<body>
+    <div id="mainview"></div>
+
+    <!-- <div class="fixed-head"> -->
+
+    <!-- <header class="win-hr-btns"> -->
+    <div class="dragable1"></div>
+    <a href="" id="" style="margin-left: 24rem; margin-top: 1.5rem;">
+
+    </a>
+    <header class="top-right">
+
+        <span onclick="closeWindow()" onmouseenter="this.style = 'cursor: pointer; color: red;'" onmouseout="this.style = 'cursor: pointer; color: white;'" class="material-icons">close</span>
+    </header>
+
+
+    <div class="tab" style="background-color: #0c2346; height: 100%;">
+        <button class="tablinks" style="color: #ddd;" onclick="openTab(event, 'setting')" id="defaultOpen">🔧
+            Setting</button>
+        <button class="tablinks" style="color: #ddd;" onclick="openTab(event, 'features')" id="featuresTab"><img
+                src="./img/about-64.png" width="25" height="25" /> Features</button>
+        <button class="tablinks" style="color: #ddd;" onclick="openTab(event, 'Other')" id="otherTab"><img
+                src="./img/other-96.png" width="25" height="25" /> Other</button>
+        <button class="tablinks" style="color: #ddd;" onclick="openTab(event, 'Change Logs')" id="changelogTab"><img
+                src="./img/edit-property-64.png" width="25" height="25" /> Changelog</button>
+        <button class="tablinks" style="color: #ddd;" onclick="" id="mydiscord"><img src="./img/discord-new.png"
+                width="25" height="25" /> Kay[.kaytea]</button>
+    </div>
+
+
+    <div id="setting" class="tabcontent">
+        <h1 style="text-align: center;" id="innerTabcontentSetting">🔧 Setting</h1>
+
+        <table style="margin-top: 1rem; border-spacing: 20px;">
+            <tr>
+                <td style="font-size: large;">
+                    <div class="select" style=" width: 20em; height: 2em;">
+                        <label id="innerLanguage" style="margin: -.5em .5em 0 .5em;" for="selectLang">Languages:
+                        </label>
+                        <select id="selectLang" onchange="getValueLang(this.value)">
+                            <option value="" id="innerTextChoiseLanguage" selected disabled>Choose Server</option>
+                            <option value="en-US" id="innerOptionUS">English</option>
+                            <option value="vi-VN" id="innerOptionVN">Vietnamese</option>
+                        </select>
+                    </div>
+                    <!-- <a class="button-89" style="margin-left: 1rem; cursor: pointer;" id="btnRenewLanguages">Reset Language</a> -->
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <div class="checkbox-wrapper-14">
+                        <input id="autoUpdateCheckbox" type="checkbox" class="switch">
+                        <label for="autoUpdateCheckbox" id="innerAutoUpdate">Auto Updating</label>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <div class="checkbox-wrapper-14">
+                        <input id="downloadServer" type="checkbox" class="switch">
+                        <label for="downloadServer" id="innerReDownloadServer">Reload Servers</label>
+                    </div>
+                    <!-- <input type="checkbox" id="downloadServer" style="transform: scale(1.8); margin-right: 10px;" />
+                    <a id="innerReDownloadServer">ReLoad Default Servers After Relaunch</a> -->
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <div class="checkbox-wrapper-14">
+                        <input id="addServer" type="checkbox" class="switch">
+                        <label for="addServer" id="innerAddIP">Add</label>
+                    </div>
+                    <!-- <input type="checkbox" id="addServer" style="transform: scale(1.8); margin-right: 10px;" />
+                    <a id="innerAddIP">Add IP</a> -->
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <div class="checkbox-wrapper-14">
+                        <input id="deleteServer" type="checkbox" class="switch">
+                        <label for="deleteServer" id="innerDeleteIP">Delete</label>
+                    </div>
+                    <!-- <input type="checkbox" id="deleteServer" style="transform: scale(1.8); margin-right: 10px;" />
+                    <a id="innerDeleteIP">Delete IP</a> -->
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <div class="checkbox-wrapper-14">
+                        <input id="changeImage" type="checkbox" class="switch">
+                        <label for="changeImage" id="innerChangeIMG">Img/Video</label>
+                    </div>
+                    <!-- <input type="checkbox" id="changeImage" style="transform: scale(1.8); margin-right: 10px;" />
+                    <a id="innerChangeIMG">Change IMG</a> -->
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <div class="checkbox-wrapper-14">
+                        <input id="setDefault" type="checkbox" class="switch">
+                        <label for="setDefault" id="innerSetDefault">Default</label>
+                    </div>
+                    <!-- <input type="checkbox" id="setDefault" style="transform: scale(1.8); margin-right: 10px;" />
+                    <a id="innerSetDefault">Set Default</a> -->
+                </td>
+            </tr>
+
+        </table>
+
+        <!-- <button class="button-49" style="padding: 3px 3px;" id="saveConfig">Auto Save</button> -->
+        <a href="#" class="button button--piyo" style="margin-top: 3rem;">
+            <div class="button__wrapper">
+                <span class="button__text" id="saveConfig">Auto Save</span>
+            </div>
+            <div class="characterBox">
+                <div class="character wakeup">
+                    <div class="character__face"></div>
+                </div>
+                <div class="character wakeup">
+                    <div class="character__face"></div>
+                </div>
+                <div class="character">
+                    <div class="character__face"></div>
+                </div>
+            </div>
+        </a>
+
+    </div>
+
+    <div id="features" class="tabcontent">
+        <!-- <h2 style="text-align: center;">About</h2> -->
+        <h1 style="text-align: center;" id="innerTabcontentFeatures">📑 Features:</h1>
+
+        <table style="margin-left: auto; margin-right: auto; margin-top: 0px; border-spacing: 10px;">
+            <tr>
+                <td>👉🏻 Multiple servers support</td>
+            </tr>
+            <tr>
+                <td>👉🏻 Automated application updates</td>
+            </tr>
+            <tr>
+                <td>👉🏻 Online players</td>
+            </tr>
+            <tr>
+                <td>👉🏻 Clear cache FiveM</td>
+            </tr>
+            <tr>
+                <td>
+                    👉🏻 Change and save Cover Picture/Video in application
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    👉🏻 Add/remove IP/City in application
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    👉🏻 Open FiveM/GTA5 Folder
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    👉🏻 Multi languages
+                </td>
+            </tr>
+        </table>
+
+    </div>
+
+    <div id="Other" class="tabcontent">
+        <h1 style="text-align: center;" id="innerTabcontenOther">🪄 Other</h1>
+        <p style="text-align: center;"> -----------------------------------------</p>
+        <h3 style="text-align: left; margin-top: 10px;">❗️ Why is the launcher relaunched sometimes?</h3>
+        <h5 style="text-align: left; margin-top: 10px; margin-left: 30px;">⭕️ Sometimes, it needs a relaunch to take
+            effect.</h5>
+        <h3 style="text-align: left; margin-top: 10px;">❗️❗️❗️❗️❗️❗️❗️❗️❗️❗️❗️❗️❗️❗️❗️</h3>
+        <h4 style="text-align: left; margin-top: 10px; margin-left: 30px;">⭕️ Please send me a message at discord if you
+            see any bugs 🥺</h4>
+        <h3 style="text-align: center; margin-top: 50px;">Updating...</h3>
+        <!-- <a
+            style="margin-left: 10rem;margin-right: auto; width: 50%; background-color: #7a4caf; color: white;  padding: 14px 20px; border: none; border-radius: 4px; cursor: pointer;"
+            onmouseenter="this.style = 'margin-left: 10rem; margin-right: auto; top: 10rem; width: 50%; background-color: #602285; color: white;  padding: 14px 20px; border: none; border-radius: 4px; cursor: pointer;'"
+            onmouseout="this.style = 'margin-left: 10rem; margin-right: auto; top: 10rem; width: 50%; background-color: #7a4caf; color: white;  padding: 14px 20px; border: none; border-radius: 4px; cursor: pointer;'"
+            id="checkinfo">
+            Thông tin máy bạn
+    </a> -->
+    </div>
+
+    <div id="Change Logs" class="tabcontent">
+        <h1 style="text-align: center;" id="innerTabcontentChangeLog">📑 Changelog</h1>
+        <p style="text-align: center;"> -----------------------------------------</p>
+        <h3 style="margin-top: 10px;">v1.0.0</h3>
+        <h4>- Release Launcher</h4>
+        <h4>〰️〰️〰️〰️〰️〰️〰️〰️〰️〰️</h4>
+        <h3>v1.3.0:</h3>
+        <h4>- 🔥Added Button Delete Cache</h4>
+        <h4>〰️〰️〰️〰️〰️〰️〰️〰️〰️〰️</h4>
+        <h3>v1.4.0:</h3>
+        <h4>- 🔥Auto Update</h4>
+        <h4>- Now can drag and drop launcher</h4>
+        <h4>- Show how many players in server</h4>
+        <h4>〰️〰️〰️〰️〰️〰️〰️〰️〰️〰️</h4>
+        <h3>v1.4.1 - 1.4.4:</h3>
+        <h4>- Fixed IP</h4>
+        <h4>〰️〰️〰️〰️〰️〰️〰️〰️〰️〰️</h4>
+        <h3>v1.4.5:</h3>
+        <h4>- 🔥Added Button Add/Remove IP (Not ready)</h4>
+        <h4>- 🔥Added Button Change IMG (Not ready)</h4>
+        <h4>- Fixed small bug</h4>
+        <h4>〰️〰️〰️〰️〰️〰️〰️〰️〰️〰️</h4>
+        <h3>v1.4.6:</h3>
+        <h4>- Fixed IP</h4>
+        <h4>〰️〰️〰️〰️〰️〰️〰️〰️〰️〰️</h4>
+        <h3>v2.0.0:</h3>
+        <h4>- Fix IP</h4>
+        <h4>- Now we can change IMG</h4>
+        <h4>- Now we can add/remove IP</h4>
+        <h4>- Added small things</h4>
+        <h4>〰️〰️〰️〰️〰️〰️〰️〰️〰️〰️</h4>
+        <h3>v2.0.1 - 2.0.6:</h3>
+        <h4>- Fixed IP</h4>
+        <h4>〰️〰️〰️〰️〰️〰️〰️〰️〰️〰️</h4>
+        <h3>v2.1.0:</h3>
+        <h4>- 🔥Added List Players</h4>
+        <h4>- 🔥Added a choice option for the video cover</h4>
+        <h4>〰️〰️〰️〰️〰️〰️〰️〰️〰️〰️</h4>
+        <h3>v2.1.1 - 2.1.3:</h3>
+        <h4>- Fixed small bug</h4>
+        <h4>〰️〰️〰️〰️〰️〰️〰️〰️〰️〰️</h4>
+        <h3>v2.2.0:</h3>
+        <h4>- 🔥Added Button Folder FiveM</h4>
+        <h4>- Fixed IP Tab</h4>
+        <h4>〰️〰️〰️〰️〰️〰️〰️〰️〰️〰️</h4>
+        <h3>v2.2.1</h3>
+        <h4>- Fixed small bug</h4>
+        <h4>〰️〰️〰️〰️〰️〰️〰️〰️〰️〰️</h4>
+        <h3>v2.2.2</h3>
+        <h4>- 🔥Added Button Folder GTA5</h4>
+        <h4>〰️〰️〰️〰️〰️〰️〰️〰️〰️〰️</h4>
+        <h3>v2.2.3 - 2.2.5</h3>
+        <h4>- Changed IP</h4>
+        <h4>〰️〰️〰️〰️〰️〰️〰️〰️〰️〰️</h4>
+        <h3>v2.3.0</h3>
+        <h4>- 🔥Added Menu Settings</h4>
+        <h4>〰️〰️〰️〰️〰️〰️〰️〰️〰️〰️</h4>
+        <h3>v2.3.1 - 2.3.4</h3>
+        <h4>- Fixed small bug</h4>
+        <h4>〰️〰️〰️〰️〰️〰️〰️〰️〰️〰️</h4>
+        <h3>v2.3.5</h3>
+        <h4>- 🔥Now we can select language</h4>
+        <h4>- Added something</h4>
+        <h4>〰️〰️〰️〰️〰️〰️〰️〰️〰️〰️</h4>
+        <h3>v2.3.6</h3>
+        <h4>- 🔥Added more option delete cache</h4>
+        <h4>〰️〰️〰️〰️〰️〰️〰️〰️〰️〰️</h4>
+
+    </div>
+
+    <script>
+        const { ipcRenderer, shell } = require('electron');
+        const fs = require('fs');
+        const ini = require('ini');
+        const getSettings = "c://Temporary//Home-Launcher//settings//config.ini";
+
+        const iniContent = fs.readFileSync(getSettings, 'utf-8');   // Read file ini
+        const config = ini.parse(iniContent);                       // Parse file
+        const databaseConfig = config.Launcher;                     // Read file ini which tag 'Launcher'
+        const langFile = require(`c://Temporary//Home-Launcher//settings//languages//${databaseConfig.language}.json`);
+        function getValueLang(lang) {
+            if (!lang) {
+                window.alert(langFile.alertChooseLanguage);
+            } else {
+                setEnvVariable('language', lang);
+                document.getElementById('saveConfig').innerHTML = `${langFile.innerLanguage} ${lang}`;
+                // window.alert(lang);
+            }
+        }
+
+        document.getElementById('innerAutoUpdate').innerText = langFile.innerAutoUpdate;
+        document.getElementById('innerReDownloadServer').innerText = langFile.innerReDownloadServer;
+        document.getElementById('innerAddIP').innerText = langFile.innerAddIP;
+        document.getElementById('innerDeleteIP').innerText = langFile.innerDeleteIP;
+        document.getElementById('innerChangeIMG').innerText = langFile.innerChangeIMG;
+        document.getElementById('innerSetDefault').innerText = langFile.innerSetDefault;
+        document.getElementById('innerLanguage').innerText = langFile.innerLanguage;
+        document.getElementById('innerOptionVN').innerText = langFile.innerOptionVN;
+        document.getElementById('innerOptionUS').innerText = langFile.innerOptionUS;
+        document.getElementById('innerTabcontentSetting').innerText = langFile.innerTabcontentSetting;
+        document.getElementById('innerTabcontentFeatures').innerText = langFile.innerTabcontentFeatures;
+        document.getElementById('innerTabcontentChangeLog').innerText = langFile.innerTabcontentChangelog;
+        document.getElementById('innerTabcontenOther').innerText = langFile.innerTabcontenOther;
+        document.getElementById('defaultOpen').innerText = langFile.innerTabSetting;
+        document.getElementById('featuresTab').innerText = langFile.innerTabFeatures;
+        document.getElementById('changelogTab').innerText = langFile.innterTabChangelog;
+        document.getElementById('otherTab').innerText = langFile.innterTabOther;
+        document.getElementById('innerTextChoiseLanguage').innerText = langFile.innerTextChoiseLanguage;
+        document.getElementById('saveConfig').innerText = langFile.innerBtnSaveConfig;
+
+        // Load checkbox
+        if (databaseConfig.configAddIP) {
+            document.getElementById('addServer').checked = true;
+        } else {
+            document.getElementById('addServer').checked = false;
+        }
+
+        if (databaseConfig.configChangeIMG) {
+            document.getElementById('changeImage').checked = true;
+        } else {
+            document.getElementById('changeImage').checked = false;
+        }
+
+        if (databaseConfig.configDeleteIP) {
+            document.getElementById('deleteServer').checked = true;
+        } else {
+            document.getElementById('deleteServer').checked = false;
+        }
+
+        if (databaseConfig.configdownloadServers) {
+            document.getElementById('downloadServer').checked = true;
+        } else {
+            document.getElementById('downloadServer').checked = false;
+        }
+
+        if (databaseConfig.configDefault) {
+            document.getElementById('setDefault').checked = true;
+        } else {
+            document.getElementById('setDefault').checked = false;
+        }
+
+        if (databaseConfig.configAutoUpdate) {
+            document.getElementById('autoUpdateCheckbox').checked = true;
+        } else {
+            document.getElementById('autoUpdateCheckbox').checked = false;
+        }
+
+        // Read and write file .env
+        const setEnvVariable = (key, value) => {
+            // Read file .env
+            const envFileContent = fs.readFileSync(getSettings, 'utf8');
+
+            // Find and replace value of environment variable
+            const regex = new RegExp(`${key}=.*`);
+            const updatedEnvFileContent = envFileContent.replace(regex, `${key}=${value}`);
+
+            // write file .env
+            fs.writeFileSync(getSettings, updatedEnvFileContent, 'utf8');
+
+        }
+
+        // Checking box add server
+        const addServer = document.getElementById('addServer');
+        document.getElementById('addServer').addEventListener('click', () => {
+            if (addServer.checked) {
+                setEnvVariable('configAddIP', 'true');
+                document.getElementById('saveConfig').innerHTML = `${langFile.innerAddIP} - ${langFile.enable}`;
+            } else {
+                setEnvVariable('configAddIP', 'false');
+                document.getElementById('saveConfig').innerHTML = `${langFile.innerAddIP} - ${langFile.disable}`;
+            }
+        });
+
+        // Checking box delete server
+        const deleteServer = document.getElementById('deleteServer');
+        document.getElementById('deleteServer').addEventListener('click', () => {
+            if (deleteServer.checked) {
+                setEnvVariable('configDeleteIP', 'true');
+                document.getElementById('saveConfig').innerHTML = `${langFile.innerDeleteIP} - ${langFile.enable}`;
+            } else {
+                setEnvVariable('configDeleteIP', 'false');
+                document.getElementById('saveConfig').innerHTML = `${langFile.innerDeleteIP} - ${langFile.disable}`;
+            }
+        });
+
+        // Checking box change image/video
+        const changeImage = document.getElementById('changeImage');
+        document.getElementById('changeImage').addEventListener('click', () => {
+            if (changeImage.checked) {
+                setEnvVariable('configChangeIMG', 'true');
+                document.getElementById('saveConfig').innerHTML = `${langFile.innerChangeIMG} - ${langFile.enable}`;
+            } else {
+                setEnvVariable('configChangeIMG', 'false');
+                document.getElementById('saveConfig').innerHTML = `${langFile.innerChangeIMG} - ${langFile.disable}`;
+            }
+        });
+
+        // Checking box download servers file
+        const downloadServer = document.getElementById('downloadServer');
+        document.getElementById('downloadServer').addEventListener('click', () => {
+            if (downloadServer.checked) {
+                setEnvVariable('configdownloadServers', 'true');
+                document.getElementById('saveConfig').innerHTML = `${langFile.innerReDownloadServer} - ${langFile.enable}`;
+            } else {
+                setEnvVariable('configdownloadServers', 'false');
+                document.getElementById('saveConfig').innerHTML = `${langFile.innerReDownloadServer} - ${langFile.disable}`;
+            }
+        });
+
+        // Checking box set default
+        const setDefault = document.getElementById('setDefault');
+        document.getElementById('setDefault').addEventListener('click', () => {
+            if (setDefault.checked) {
+                setEnvVariable('configDefault', 'true');
+                document.getElementById('saveConfig').innerHTML = `${langFile.innerSetDefault} - ${langFile.enable}`;
+            } else {
+                setEnvVariable('configDefault', 'false');
+                document.getElementById('saveConfig').innerHTML = `${langFile.innerSetDefault} - ${langFile.disable}`;
+            }
+        });
+
+        // Checking box auto update launcher
+        const configAutoUpdate = document.getElementById('autoUpdateCheckbox');
+        document.getElementById('autoUpdateCheckbox').addEventListener('click', () => {
+            if (autoUpdateCheckbox.checked) {
+                setEnvVariable('configAutoUpdate', 'true');
+                document.getElementById('saveConfig').innerHTML = `${langFile.innerAutoUpdate} - ${langFile.enable}`;
+            } else {
+                setEnvVariable('configAutoUpdate', 'false');
+                document.getElementById('saveConfig').innerHTML = `${langFile.innerAutoUpdate} - ${langFile.disable}`;
+            }
+        });
+
+        document.getElementById("mydiscord").addEventListener('click', () => {
+            const url = "https://discordapp.com/users/312463940628119552";
+            shell.openExternal(url);
+        });
+
+        // document.getElementById("checkinfo").addEventListener("click", () => {
+        //     Btn_About_Click()
+        // }, false);
+
+        // Choose tab
+        function openTab(evt, tabName) {
+            var i, tabcontent, tablinks;
+            tabcontent = document.getElementsByClassName("tabcontent");
+            for (i = 0; i < tabcontent.length; i++) {
+                tabcontent[i].style.display = "none";
+            }
+            tablinks = document.getElementsByClassName("tablinks");
+            for (i = 0; i < tablinks.length; i++) {
+                tablinks[i].className = tablinks[i].className.replace(" active", "");
+            }
+            document.getElementById(tabName).style.display = "block";
+            evt.currentTarget.className += " active";
+        }
+
+        // Get the element with id="defaultOpen" and click on it
+        document.getElementById("defaultOpen").click();
+
+
+        function closeWindow() {
+            ipcRenderer.send('aboutClose');
+            ipcRenderer.send('relaunchApp');
+        }
+
+        // document.getElementById('btnRenewLanguages').addEventListener('click', ()=> {
+        //     renewLanguagesFile();
+        // });
+
+
+    </script>
+</body>
+
+</html>
