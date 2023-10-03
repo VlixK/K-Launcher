@@ -22,7 +22,8 @@
 #### Settings
 Enable/disable settings
 
-![image](https://github.com/VlixK/K-Launcher/assets/81835599/4621b90a-be3a-4b09-93a8-9a819605c608)
+![image](https://github.com/VlixK/K-Launcher/assets/81835599/a1224ec4-633e-4cff-97ce-f644ffc5d68f)
+
 
 
 
