@@ -317,7 +317,6 @@ function deleteCacheFiveM() {
                         ps.addCommand(`Remove-Item -Recurse -Force "${DIR_FiveM}\\data\\cache"`);
                         ps.addCommand(`Remove-Item -Recurse -Force "${DIR_FiveM}\\data\\server-cache"`);
                         ps.addCommand(`Remove-Item -Recurse -Force "${DIR_FiveM}\\data\\server-cache-priv"`);
-                        // alert('cacheonly');
 
                         ps.invoke().then(output => {
                             console.log(output);
@@ -708,7 +707,6 @@ document.getElementById('removeImg').addEventListener('click', function (event) 
 })
 
 function forNY() {
-    //window.alert('Được gặp bà tôi vui lắm, 3 tháng nay thật sự rất vui đối với tôi.\n Có lẽ, đây chỉ là 1 hướng nhưng chắc rằng tôi nghĩ tôi thích bà rồi, từ cái hồi bắt đầu nói chuyện bên Bộ Tộc luôn cơ.\n Cám ơn bà nha, thật sự chưa bao giờ tui nghĩ rằng chơi game chung với 1 ai đó nó vui đến vậy.\n\n');
     ipcRenderer.send('openForNy');
     ipcRenderer.send('closeConfirmWindow');
 }
