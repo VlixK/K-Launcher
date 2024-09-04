@@ -23,4 +23,4 @@
   - [Source](https://github.com/vsousa14/FiveM-Server-Launcher) @ SOUSA
   
 #### License
-  - This project is licensed under the MIT License - see the [LICENSE](https://github.com/VlixK/K-Launcher/blob/main/license.md) for details.
+  - This project is licensed under the MIT License - see the [LICENSE](https://github.com/VlixK/K-Launcher/blob/main/LICENSE) for details.
