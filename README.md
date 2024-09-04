@@ -22,3 +22,5 @@
   - Discord: [KayTea](https://discordapp.com/users/312463940628119552) (DM me if you have any question)
   - [Source](https://github.com/vsousa14/FiveM-Server-Launcher) @ SOUSA
   
+#### License
+  - This project is licensed under the MIT License - see the [LICENSE](https://github.com/VlixK/K-Launcher/blob/main/license.md) for details.
